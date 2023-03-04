@@ -16,7 +16,7 @@ TOBE_DECRYPTED =[
     'i dont blame him',
     'i see absolutely no error in logical reasoning within that matter of events',
     'as a famous man once said',
-    'on to the next one mother fuckas',
+    'on to the next one',
     "why did the tomato turn red because it saw the salad dressing",
     "what did the left eye say to the right eye between us something smells", 
     "why dont scientists trust atoms because they make up everything",
@@ -28,8 +28,9 @@ TOBE_DECRYPTED =[
     "why dont skeletons fight each other they dont have the guts",
     "why dont oysters give to charity because theyre shellfish"]
 RAN = random.choice(TOBE_DECRYPTED) #gets random string from the list above
-RANSTR_INDEX_VAUE = len(RAN) #retrieves the Index Value string stored in RAM
-print(RANSTR_INDEX_VAUE, RAN)
+RANSTR_INDEX_VAUE = len(RAN) #retrieves the Index Value string stored in RAN
+print(RANSTR_INDEX_VAUE)
+print(RAN)
 
 def main():
     x = input(f"""Please Enter selected path then press enter:
@@ -59,8 +60,32 @@ def main():
             
             
 def easy(RAN):
+    GUESSES = 10
+    COUNTER = 0
     reversed_cipher = RAN[::-1]
-    print("Decrypt the following:\n", reversed_cipher, "below")
+    print('Decrypt the following below: ', reversed_cipher) 
+    print("""************************************************""")
+    while True:
+        f = input('')
+        if f == RAN:
+            print("correct! - On to the Next Level!")
+            break
+        else:
+            COUNTER += 1
+            print("incorrect!, Try Again!\n", reversed_cipher)
+            if COUNTER == GUESSES:
+                print("10 Attempts Used too bad so sad")
+                again = input("Play again?\n 'm' to return to main menu. (y/n/m): ").lower()
+                if again == 'y':
+                    easy(RAN)
+                else:
+                    sys.exit()
+            
+            
+
+
+
+
     
     
             

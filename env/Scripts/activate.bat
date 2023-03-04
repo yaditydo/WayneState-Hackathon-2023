@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\Laptop\Documents\GitHub\WayneState-Hackathon-2023\env
+set VIRTUAL_ENV=C:\Users\12488\Documents\GitHub\WayneState-Hackathon-2023\env
 
 if not defined PROMPT set PROMPT=$P$G
 
