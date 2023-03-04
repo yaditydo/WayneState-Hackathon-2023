@@ -6,7 +6,8 @@ import os
 import random
 #needed for obvious random number generation. I don't remember how to implement pseudo random number generation:/
 #Question How will we store strings. Do we want it to be random? Perhaps use GPT's AI to give 5 or so sentences for at random for each function? or do we want to just list a bunch of strings? Im going to set a list of string to be passed to each individual function nemo
-
+CSHIFT = 3
+SCORE = 0
 TOBE_DECRYPTED =[
     'this is thy sentence one',
     'how much wood does a chuck wood',
@@ -29,16 +30,16 @@ TOBE_DECRYPTED =[
     "why dont oysters give to charity because theyre shellfish"]
 RAN = random.choice(TOBE_DECRYPTED) #gets random string from the list above
 RANSTR_INDEX_VAUE = len(RAN) #retrieves the Index Value string stored in RAN
-print(RANSTR_INDEX_VAUE)
-print(RAN)
+print(RANSTR_INDEX_VAUE) #PRINTS INTEGER INDEX VALUE
+print(RAN) #PRINT RANDOM STRING FROM LIST
 
-def main():
+def main(): #MAIN GAME LOOP FUNCTION
     x = input(f"""Please Enter selected path then press enter:
-            (a) | easy):
-            (b) | less-easy):
-            (c) | more-easy):
-            (d) | Questionable):
-            (e) | Good Luck)
+            (a) | (easy):
+            (b) | (less-easy):
+            (c) | (more-easy):
+            (d) | (Questionable):
+            (e) | (Good Luck)
             """).lower()
     if x == 'a':
         easy(RAN)
@@ -58,30 +59,89 @@ def main():
         else:
             sys.exit()
             
+    
+            
             
 def easy(RAN):
     GUESSES = 10
     COUNTER = 0
     reversed_cipher = RAN[::-1]
-    print('Decrypt the following below: ', reversed_cipher) 
-    print("""************************************************""")
+    print('Decrypt the following below: ' + reversed_cipher, '\n') 
+    print("""************************************************\n""")
     while True:
         f = input('')
         if f == RAN:
-            print("correct! - On to the Next Level!")
-            break
+            print("correct! +1 Score:\tOn to the Next Level!")
+            less_easy()
         else:
             COUNTER += 1
-            print("incorrect!, Try Again!\n", reversed_cipher)
+            print("incorrect!, Try Again!\n" + reversed_cipher)
+            
             if COUNTER == GUESSES:
                 print("10 Attempts Used too bad so sad")
                 again = input("Play again?\n 'm' to return to main menu. (y/n/m): ").lower()
                 if again == 'y':
                     easy(RAN)
+                elif again =='m':
+                    main()
                 else:
                     sys.exit()
-            
-            
+
+
+
+def less_easy():
+    GUESSES = 10
+    COUNTER = 0
+    CRAN = random.choice(TOBE_DECRYPTED) #NEW RANDOM STRING FROM LIST FOR THIS CIPHER
+    encrypted_string = caesar_cipher(CRAN, 3)
+    print('Decrypt the following below: \n', encrypted_string,"\n") 
+    print("""************************************************""")
+    while True:
+        f = input('')
+        if f == CRAN:
+            print("correct! +2 Score:\tOn to the Next Level!")
+        else:
+            COUNTER += 1
+            print("incorrect!, Try Again!\n", encrypted_string,"\n")
+
+            if COUNTER == GUESSES:
+                print("10 Attempts Used too bad so sad")
+                again = input("Play again?\n 'm' to return to main menu. (y/n/m): ").lower()
+                if again == 'y':
+                    less_easy()
+                elif again == 'm':
+                    main()
+                else:
+                    sys.exit()
+
+def caesar_cipher(message, shift):
+    
+    #Encrypts the given message using Caesar cipher and returns the encrypted string.
+    
+    # The Caesar cipher only works with uppercase letters
+    message = message.upper()
+
+    # The encrypted string starts as an empty string
+    encrypted_string = ""
+
+    # Loop through each character in the message
+    for character in message:
+        # If the character is a letter, encrypt it
+        if character.isalpha():
+            # Calculate the index of the shifted character
+            shifted_index = (ord(character) - 65 + shift) % 26
+
+            # Convert the shifted index back to an uppercase letter and append it to the encrypted string
+            encrypted_string += chr(shifted_index + 65)
+        else:
+            # If the character is not a letter, simply append it to the encrypted string
+            encrypted_string += character
+
+    # Return the encrypted string
+    return encrypted_string
+                
+                
+def 
 
 
 
