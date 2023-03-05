@@ -1,10 +1,10 @@
 
 #yaditydo - Evan P. repo initialized python==3.10.10 -> run env/Scripts/activate to enter venv or source env/bin/activate on mac
-
 import sys
 import os
 import random
 #needed for obvious random number generation. I don't remember how to implement pseudo random number generation:/
+#   (e) | (Good Luck)
 #Question How will we store strings. Do we want it to be random? Perhaps use GPT's AI to give 5 or so sentences for at random for each function? or do we want to just list a bunch of strings? Im going to set a list of string to be passed to each individual function nemo
 CSHIFT = 3
 SCORE = 0
@@ -34,13 +34,12 @@ print(RANSTR_INDEX_VAUE) #PRINTS INTEGER INDEX VALUE
 print(RAN) #PRINT RANDOM STRING FROM LIST
 
 def main(): #MAIN GAME LOOP FUNCTION
-    x = input(f"""Please Enter selected path then press enter:
-            (a) | (easy):
-            (b) | (less-easy):
-            (c) | (more-easy):
-            (d) | (Questionable):
-            (e) | (Good Luck)
-            """).lower()
+    print("""Please Enter selected path then press enter:
+            a | (easy)
+            b | (less-easy)
+            c | (more-easy)
+            d | (Questionable)""")
+    x = input('Enter: ')
     if x == 'a':
         easy(RAN)
     elif x == 'b':
@@ -50,7 +49,7 @@ def main(): #MAIN GAME LOOP FUNCTION
     elif x == 'd':
         questionable()
     elif x == 'e':
-        goodluck()
+        good_luck()
     else:
         print("Invalid Input")
         plyagain = input("Play again? (y/n): ").lower()
@@ -66,12 +65,12 @@ def easy(RAN):
     GUESSES = 10
     COUNTER = 0
     reversed_cipher = RAN[::-1]
-    print('Decrypt the following below: ' + reversed_cipher, '\n') 
-    print("""************************************************\n""")
+    print('\n\nLEVEL 1\nDecrypt the following below:\n' + reversed_cipher) 
     while True:
-        f = input('')
+        f = input('Decrypted Sentence: ').lower()
+
         if f == RAN:
-            print("correct! +1 Score:\tOn to the Next Level!")
+            print("correct! +1 score.\n On to the Next Level!")
             less_easy()
         else:
             COUNTER += 1
@@ -95,9 +94,8 @@ def less_easy():
     CRAN = random.choice(TOBE_DECRYPTED) #NEW RANDOM STRING FROM LIST FOR THIS CIPHER
     encrypted_string = caesar_cipher(CRAN, 3)
     print('Decrypt the following below: \n', encrypted_string,"\n") 
-    print("""************************************************""")
     while True:
-        f = input('')
+        f = input('Decrypted Sentence: ').lower()
         if f == CRAN:
             print("correct! +2 Score:\tOn to the Next Level!")
         else:
@@ -114,18 +112,18 @@ def less_easy():
                 else:
                     sys.exit()
 
-def caesar_cipher(message, shift):
+def caesar_cipher(rand, shift):
     
     #Encrypts the given message using Caesar cipher and returns the encrypted string.
     
     # The Caesar cipher only works with uppercase letters
-    message = message.upper()
+    rand = rand.upper()
 
     # The encrypted string starts as an empty string
     encrypted_string = ""
 
     # Loop through each character in the message
-    for character in message:
+    for character in rand:
         # If the character is a letter, encrypt it
         if character.isalpha():
             # Calculate the index of the shifted character
@@ -141,10 +139,89 @@ def caesar_cipher(message, shift):
     return encrypted_string
                 
                 
-def 
+def more_easy():
+    GUESSES = 10
+    COUNTER = 0
+    RORAN = random.choice(TOBE_DECRYPTED) #NEW RANDOM STRING FROM LIST FOR THIS CIPHER
+    print(RORAN) #test
+    cipher13 = rot13(RORAN) #plain text -> rot13
+    print("Decrypt the following:\n\n" + cipher13, "\n")
+    x = input('\nEnter Decrypted Phrase: ')
+    while True:
+        f = input('Decrypted Sentence: ').lower()
+        if f == cipher13:
+            print("correct! +2 Score:\tOn to the Next Level!")
+        else:
+            COUNTER += 1
+            print("incorrect!, Try Again!\n", cipher13,"\n")
+
+            if COUNTER == GUESSES:
+                print("10 Attempts Used too bad so sad")
+                again = input("Play again?\n 'm' to return to main menu. (y/n/m): ").lower()
+                if again == 'y':
+                    less_easy()
+                elif again == 'm':
+                    main()
+                else:
+                    sys.exit
+    
+    
+
+    
+def rot13(string): #ROT13 Cipher   
+    output = ''
+    for char in string:
+        if char.isalpha():
+            if char.islower():
+                base = ord('a')
+            else:
+                base = ord('A')
+            rotated = (ord(char) - base + 13) % 26 + base
+            output += chr(rotated)
+        else:
+            output += char
+    return output
 
 
+def questionable():
+    GUESSES = 10
+    COUNTER = 0
+    COLRAN = random.choice(TOBE_DECRYPTED) #NEW RANDOM STRING FROM LIST FOR
+    print("""Ready for a bit of a challenge? This one operates a bit differently than others
+          please chease your desired KEY length. Then use the key tp decrypt the message.""")
+    usrkey = (input("Please enter a a single word, the longer the harder to decrypt: "))
+    key = (len(usrkey))
+    grid = [''] * key
+    for column in range(key):
+        currentIndex = column
+        while currentIndex < len(COLRAN):
+            grid[column] += COLRAN[currentIndex]
 
+            currentIndex += key
+    x = ''.join(grid)
+    print('\n')
+    print("Decrypt the following:\n" +  x, "\n")
+    finale = input('\nEnter Decrypted Phrase: ').lower()
+    while True:
+        f = input('')
+        if f == finale:
+            print("correct! +1 Score:\tOn to the Next Level!")
+        else:
+            COUNTER += 1
+            print("incorrect!, Try Again!\n", x,"\n")
+
+            if COUNTER == GUESSES:
+                print("This was a tough one! The correct answer was: " + COLRAN)
+
+                again = input("Play again?\n 'm' to return to main menu. (y/n/m): ").lower()
+                if again == 'y':
+                    less_easy()
+                elif again == 'm':
+                    main()
+                else:
+                    sys.exit
+    
+    
 
     
     
