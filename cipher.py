@@ -48,8 +48,7 @@ def main(): #MAIN GAME LOOP FUNCTION
         more_easy()
     elif x == 'd':
         questionable()
-    elif x == 'e':
-        good_luck()
+
     else:
         print("Invalid Input")
         plyagain = input("Play again? (y/n): ").lower()
@@ -198,13 +197,13 @@ def questionable():
             grid[column] += COLRAN[currentIndex]
 
             currentIndex += key
-    x = ''.join(grid)
+    m = ''.join(grid)
     print('\n')
-    print("Decrypt the following:\n" +  x, "\n")
+    print("Decrypt the following:\n" +  m, "\n")
     finale = input('\nEnter Decrypted Phrase: ').lower()
     while True:
-        f = input('')
-        if f == finale:
+        m = input('')
+        if m == finale:
             print("correct! +1 Score:\tOn to the Next Level!")
         else:
             COUNTER += 1
@@ -221,23 +220,7 @@ def questionable():
                 else:
                     sys.exit
     
-    
 
-    
-    
-            
-            
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
