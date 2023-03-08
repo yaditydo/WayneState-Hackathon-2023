@@ -60,7 +60,7 @@ def main():
             
 def easy(RAN):
     reversed_cipher = RAN[::-1]
-    print("Decrypt the following:\n", reversed_cipher, "below")
+    print("Decrypt the following:\n", reversed_cipher)
     
     
             
